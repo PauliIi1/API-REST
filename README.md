@@ -48,7 +48,7 @@ $nuevo = '{"especie":"Copeton","lugar":"Bogota","fecha":"2026-09-21","observador
 Invoke-RestMethod -Uri "http://127.0.0.1:5000/avistamientos/1" -Method Put -ContentType "application/json" -Body ([System.Text.Encoding]::UTF8.GetBytes($nuevo))
 ```
 
-5. Resumen por especie, bonus (200):
+5. Resumen por especie (200):
 ```powershell
 Invoke-RestMethod -Uri "http://127.0.0.1:5000/avistamientos/resumen" -Method Get
 ```
@@ -82,7 +82,7 @@ curl -i http://127.0.0.1:5000/avistamientos/1
 curl -i -X PUT http://127.0.0.1:5000/avistamientos/1 -H "Content-Type: application/json" -d '{"especie":"colibri","lugar":"Bogota","fecha":"2026-09-21","observador":"Paula"}'
 ```
 
-5. Resumen por especie, bonus (200):
+5. Resumen por especie (200):
 ```bash
 curl -i http://127.0.0.1:5000/avistamientos/resumen
 ```
