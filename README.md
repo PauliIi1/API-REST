@@ -1,5 +1,5 @@
 # API REST de avistamientos
-Paula Buitrago, Ingeniería de Software 2 (Sesión 17). Hecha con Python, Flask y SQLite. Probada en un PC con Windows.
+Paula Buitrago, Ingeniería de Software 2
 
 # Instalación y ejecución
 1. Requisitos: Python 3.11 o superior.
@@ -12,7 +12,7 @@ Paula Buitrago, Ingeniería de Software 2 (Sesión 17). Hecha con Python, Flask 
    - Windows: `python -m venv venv` y luego `venv\Scripts\activate`
    - Mac/Linux: `python3 -m venv venv` y luego `source venv/bin/activate`
    - Si PowerShell bloquea la activación, ejecutar antes: `Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned`
-4. Instalar dependencias: `pip install -r requirements.txt`
+4. Instalar dependencias con: `pip install -r requirements.txt`
 5. Ejecutar (desde dentro de la carpeta del proyecto): `python app.py`
 
 La API queda en http://127.0.0.1:5000.
@@ -24,7 +24,7 @@ Ejecutar los ejemplos en este orden (con la base de datos vacía, el primer regi
 Seguir solo una de las dos secciones (Windows o curl). Si se repiten, cambiar el `1` de las URL por el id que devuelva el registro.
 
 ## En Windows (PowerShell)
-En PowerShell `curl` no funciona con estos ejemplos, por eso se usaron estos comandos:
+En PowerShell curl no funciona con estos ejemplos, por eso se usaron estos comandos:
 
 1. Registrar (201, o 400 si faltan datos):
 ```powershell
