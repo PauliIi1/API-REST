@@ -28,7 +28,7 @@ En PowerShell `curl` no funciona con estos ejemplos, por eso se usaron estos com
 
 1. Registrar (201, o 400 si faltan datos):
 ```powershell
-$cuerpo = '{"especie":"Copetón","lugar":"Chia","fecha":"2026-09-20","observador":"Paula"}'
+$cuerpo = '{"especie":"Copeton","lugar":"Chia","fecha":"2026-09-20","observador":"Paula"}'
 Invoke-RestMethod -Uri "http://127.0.0.1:5000/avistamientos" -Method Post -ContentType "application/json" -Body ([System.Text.Encoding]::UTF8.GetBytes($cuerpo))
 ```
 
@@ -44,7 +44,7 @@ Invoke-RestMethod -Uri "http://127.0.0.1:5000/avistamientos/1" -Method Get
 
 4. Actualizar (200, 400 o 404):
 ```powershell
-$nuevo = '{"especie":"Copetón","lugar":"Bogota","fecha":"2026-09-21","observador":"Paula"}'
+$nuevo = '{"especie":"Copeton","lugar":"Bogota","fecha":"2026-09-21","observador":"Paula"}'
 Invoke-RestMethod -Uri "http://127.0.0.1:5000/avistamientos/1" -Method Put -ContentType "application/json" -Body ([System.Text.Encoding]::UTF8.GetBytes($nuevo))
 ```
 
