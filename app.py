@@ -1,9 +1,11 @@
 import sqlite3
 from flask import Flask, request, jsonify
+from validador import ValidadorDeAvistamiento
 
 app = Flask(__name__)
 DB = "avistamientos.db"
 CAMPOS = ["especie", "lugar", "fecha", "observador"]
+validador = ValidadorDeAvistamiento()
 
 def conectar():
     con = sqlite3.connect(DB)
@@ -31,8 +33,11 @@ def listar():
 @app.post("/avistamientos")
 def crear():
     datos = request.get_json(silent=True) or {}
-    if not all(datos.get(c) for c in CAMPOS):
-        return jsonify({"error": "Faltan datos"}), 400
+   #tin
+    error = validador.validar(datos)
+    if error:
+        return jsonify({"error": error}), 400
+    
     con = conectar()
     cur = con.execute(
         "INSERT INTO avistamientos (especie, lugar, fecha, observador) VALUES (?, ?, ?, ?)",
@@ -55,13 +60,17 @@ def ver(id):
         return jsonify({"error": "No existe"}), 404
     return jsonify(dict(fila)), 200
 
+#actualizar
 @app.put("/avistamientos/<int:id>")
 def actualizar(id):
     if buscar(id) is None:
         return jsonify({"error": "No existe"}), 404
     datos = request.get_json(silent=True) or {}
-    if not all(datos.get(c) for c in CAMPOS):
-        return jsonify({"error": "Faltan datos"}), 400
+   #ajá 
+    error = validador.validar(datos)
+    if error:
+        return jsonify({"error": error}), 400
+    
     con = conectar()
     con.execute(
         "UPDATE avistamientos SET especie=?, lugar=?, fecha=?, observador=? WHERE id=?",

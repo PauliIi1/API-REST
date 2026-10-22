@@ -91,6 +91,17 @@ curl -i http://127.0.0.1:5000/avistamientos/resumen
 ```bash
 curl -i -X DELETE http://127.0.0.1:5000/avistamientos/1
 ```
+# Pruebas
+Se requiere instalar dependencias de prueba con: `pip install -r requirements-dev.txt`
+
+Correr las pruebas: `python -m pytest`
+
+Generar la cobertura: `python -m pytest --cov=app --cov=validador --cov-report=term-missing`
+
+La validación está en `tests/test_validador.py` y las pruebas de integración en `tests/test_api.py`.
+
+# Regla de negocio
+Un avistamiento es válido si la especie tiene entre 3 y 50 caracteres, la fecha tiene el formato AAAA-MM-DD y no es posterior a hoy, y el lugar y el observador no están vacíos. Si no es válido, POST y PUT responden 400 con un mensaje que dice qué campo falló.
 
 # Uso de IA
-Usé Claude (modelo Sonnet 5.5) como herramienta de apoyo y consulta para desarrollar esta API.
+Usé Claude (modelo Sonnet 5.5) como herramienta de apoyo y consulta para desarrollar esta API y consulta de comandos para la realización de las pruebas.
