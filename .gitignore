@@ -1,3 +1,5 @@
 venv/
 __pycache__/
 avistamientos.db
+  .coverage
+  .pytest_cache/

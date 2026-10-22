@@ -33,7 +33,6 @@ def listar():
 @app.post("/avistamientos")
 def crear():
     datos = request.get_json(silent=True) or {}
-   #tin
     error = validador.validar(datos)
     if error:
         return jsonify({"error": error}), 400
@@ -66,7 +65,6 @@ def actualizar(id):
     if buscar(id) is None:
         return jsonify({"error": "No existe"}), 404
     datos = request.get_json(silent=True) or {}
-   #ajá 
     error = validador.validar(datos)
     if error:
         return jsonify({"error": error}), 400
