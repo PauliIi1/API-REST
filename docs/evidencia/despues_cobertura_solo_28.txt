@@ -1,0 +1,35 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.2.0, pluggy-1.7.0
+rootdir: /home/claude/API-REST
+configfile: pytest.ini
+plugins: platformdirs-4.13.0, cov-7.1.0
+collected 28 items
+
+tests/test_api.py .............                                          [ 46%]
+tests/test_validador.py ...............                                  [100%]
+
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.3-final-0 ________________
+
+Name                                                     Stmts   Miss  Cover
+----------------------------------------------------------------------------
+app.py                                                      15      1    93%
+avistamientos/__init__.py                                    0      0   100%
+avistamientos/entities/__init__.py                           0      0   100%
+avistamientos/entities/avistamiento.py                      10      0   100%
+avistamientos/entities/validador.py                         37      0   100%
+avistamientos/frameworks_and_drivers/__init__.py             0      0   100%
+avistamientos/frameworks_and_drivers/reloj_sistema.py        4      0   100%
+avistamientos/frameworks_and_drivers/web_flask.py           28      0   100%
+avistamientos/interface_adapters/__init__.py                 0      0   100%
+avistamientos/interface_adapters/controlador.py             37      0   100%
+avistamientos/interface_adapters/presentador.py              8      0   100%
+avistamientos/interface_adapters/repositorio_sqlite.py      51      0   100%
+avistamientos/use_cases/__init__.py                          0      0   100%
+avistamientos/use_cases/casos_de_uso.py                     53      0   100%
+avistamientos/use_cases/errores.py                           2      0   100%
+avistamientos/use_cases/modelos.py                          13      0   100%
+avistamientos/use_cases/puertos.py                          17      0   100%
+----------------------------------------------------------------------------
+TOTAL                                                      275      1    99%
+============================== 28 passed in 0.45s ==============================

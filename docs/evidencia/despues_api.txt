@@ -1,0 +1,147 @@
+### POST /avistamientos
+{
+  "especie": "colibri",
+  "fecha": "2026-09-20",
+  "id": 1,
+  "lugar": "Chia",
+  "observador": "Paula"
+}
+[HTTP 201]
+
+### POST /avistamientos
+{
+  "especie": "guacamaya",
+  "fecha": "2026-10-01",
+  "id": 2,
+  "lugar": "Leticia",
+  "observador": "Paula"
+}
+[HTTP 201]
+
+### POST /avistamientos
+{
+  "especie": "colibri",
+  "fecha": "2026-10-02",
+  "id": 3,
+  "lugar": "Bogota",
+  "observador": "Paula"
+}
+[HTTP 201]
+
+### POST /avistamientos
+{
+  "error": "especie: debe tener entre 3 y 50 caracteres"
+}
+[HTTP 400]
+
+### POST /avistamientos
+{
+  "error": "fecha: no puede ser posterior a hoy"
+}
+[HTTP 400]
+
+### GET /avistamientos
+[
+  {
+    "especie": "colibri",
+    "fecha": "2026-09-20",
+    "id": 1,
+    "lugar": "Chia",
+    "observador": "Paula"
+  },
+  {
+    "especie": "guacamaya",
+    "fecha": "2026-10-01",
+    "id": 2,
+    "lugar": "Leticia",
+    "observador": "Paula"
+  },
+  {
+    "especie": "colibri",
+    "fecha": "2026-10-02",
+    "id": 3,
+    "lugar": "Bogota",
+    "observador": "Paula"
+  }
+]
+[HTTP 200]
+
+### GET /avistamientos/1
+{
+  "especie": "colibri",
+  "fecha": "2026-09-20",
+  "id": 1,
+  "lugar": "Chia",
+  "observador": "Paula"
+}
+[HTTP 200]
+
+### GET /avistamientos/999
+{
+  "error": "No existe"
+}
+[HTTP 404]
+
+### PUT /avistamientos/1
+{
+  "especie": "colibri",
+  "fecha": "2026-09-21",
+  "id": 1,
+  "lugar": "Bogota",
+  "observador": "Paula"
+}
+[HTTP 200]
+
+### PUT /avistamientos/1
+{
+  "error": "observador: no puede estar vac\u00edo"
+}
+[HTTP 400]
+
+### PUT /avistamientos/999
+{
+  "error": "No existe"
+}
+[HTTP 404]
+
+### GET /avistamientos/resumen
+[
+  {
+    "especie": "colibri",
+    "total": 2
+  },
+  {
+    "especie": "guacamaya",
+    "total": 1
+  }
+]
+[HTTP 200]
+
+### DELETE /avistamientos/2
+[HTTP 204]
+
+### DELETE /avistamientos/2
+{
+  "error": "No existe"
+}
+[HTTP 404]
+
+### GET /avistamientos
+[
+  {
+    "especie": "colibri",
+    "fecha": "2026-09-21",
+    "id": 1,
+    "lugar": "Bogota",
+    "observador": "Paula"
+  },
+  {
+    "especie": "colibri",
+    "fecha": "2026-10-02",
+    "id": 3,
+    "lugar": "Bogota",
+    "observador": "Paula"
+  }
+]
+[HTTP 200]
+

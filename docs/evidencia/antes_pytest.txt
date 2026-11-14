@@ -1,0 +1,39 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.2.0, pluggy-1.7.0 -- /usr/bin/python
+cachedir: .pytest_cache
+rootdir: /home/claude/API-REST
+configfile: pytest.ini
+testpaths: tests
+plugins: platformdirs-4.13.0, cov-7.1.0
+collecting ... collected 28 items
+
+tests/test_api.py::test_post_valido_devuelve_201_y_el_avistamiento_creado PASSED [  3%]
+tests/test_api.py::test_post_valido_queda_guardado_y_se_puede_consultar PASSED [  7%]
+tests/test_api.py::test_post_con_especie_muy_corta_devuelve_400_y_dice_el_campo PASSED [ 10%]
+tests/test_api.py::test_post_con_fecha_futura_devuelve_400_y_no_guarda PASSED [ 14%]
+tests/test_api.py::test_get_lista_sin_registros_devuelve_200_y_lista_vacia PASSED [ 17%]
+tests/test_api.py::test_get_lista_devuelve_los_avistamientos_registrados PASSED [ 21%]
+tests/test_api.py::test_get_por_id_inexistente_devuelve_404 PASSED       [ 25%]
+tests/test_api.py::test_put_valido_devuelve_200_y_cambia_los_datos PASSED [ 28%]
+tests/test_api.py::test_put_invalido_devuelve_400_y_no_cambia_los_datos PASSED [ 32%]
+tests/test_api.py::test_put_por_id_inexistente_devuelve_404 PASSED       [ 35%]
+tests/test_api.py::test_delete_devuelve_204_y_despues_el_get_devuelve_404 PASSED [ 39%]
+tests/test_api.py::test_delete_por_id_inexistente_devuelve_404 PASSED    [ 42%]
+tests/test_api.py::test_resumen_cuenta_los_avistamientos_por_especie PASSED [ 46%]
+tests/test_validador.py::test_avistamiento_completo_y_correcto_es_valido PASSED [ 50%]
+tests/test_validador.py::test_especie_vacia_es_invalida PASSED           [ 53%]
+tests/test_validador.py::test_especie_de_2_caracteres_es_invalida PASSED [ 57%]
+tests/test_validador.py::test_especie_de_3_caracteres_es_valida PASSED   [ 60%]
+tests/test_validador.py::test_especie_de_50_caracteres_es_valida PASSED  [ 64%]
+tests/test_validador.py::test_especie_de_51_caracteres_es_invalida PASSED [ 67%]
+tests/test_validador.py::test_fecha_de_hoy_es_valida PASSED              [ 71%]
+tests/test_validador.py::test_fecha_de_manana_es_invalida PASSED         [ 75%]
+tests/test_validador.py::test_fecha_con_formato_dia_mes_anio_es_invalida PASSED [ 78%]
+tests/test_validador.py::test_fecha_sin_ceros_a_la_izquierda_es_invalida PASSED [ 82%]
+tests/test_validador.py::test_fecha_que_no_existe_es_invalida PASSED     [ 85%]
+tests/test_validador.py::test_lugar_vacio_es_invalido PASSED             [ 89%]
+tests/test_validador.py::test_observador_con_solo_espacios_es_invalido PASSED [ 92%]
+tests/test_validador.py::test_falta_un_campo_es_invalido PASSED          [ 96%]
+tests/test_validador.py::test_cuerpo_que_no_es_un_objeto_es_invalido PASSED [100%]
+
+============================== 28 passed in 0.21s ==============================
