@@ -2,6 +2,11 @@ import sqlite3
 from flask import Flask, request, jsonify
 from avistamientos.entities.validador import ValidadorDeAvistamiento
 from avistamientos.frameworks_and_drivers.reloj_sistema import RelojSistema
+from avistamientos.interface_adapters.controlador import ControladorDeAvistamientos
+from avistamientos.interface_adapters.repositorio_sqlite import RepositorioSqlite
+from avistamientos.use_cases.casos_de_uso import (
+    ActualizarAvistamiento, EliminarAvistamiento, ListarAvistamientos,
+    RegistrarAvistamiento, ResumenPorEspecie, VerAvistamiento)
 
 app = Flask(__name__)
 DB = "avistamientos.db"
@@ -14,23 +19,32 @@ def conectar():
     return con
 
 def crear_tabla():
-    con = conectar()
-    con.execute("""CREATE TABLE IF NOT EXISTS avistamientos (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        especie TEXT NOT NULL,
-        lugar TEXT NOT NULL,
-        fecha TEXT NOT NULL,
-        observador TEXT NOT NULL)""")
-    con.commit()
-    con.close()
+    RepositorioSqlite(DB).crear_tabla()
 
+def controlador():
+    repo = RepositorioSqlite(DB)
+    return ControladorDeAvistamientos(
+        ListarAvistamientos(repo), VerAvistamiento(repo),
+        RegistrarAvistamiento(repo, validador), ActualizarAvistamiento(repo, validador),
+        EliminarAvistamiento(repo), ResumenPorEspecie(repo))
+
+# ---- lecturas: ya pasan por el controlador y los casos de uso ----
 @app.get("/avistamientos")
 def listar():
-    con = conectar()
-    filas = con.execute("SELECT * FROM avistamientos").fetchall()
-    con.close()
-    return jsonify([dict(f) for f in filas]), 200
+    cuerpo, codigo = controlador().listar()
+    return jsonify(cuerpo), codigo
 
+@app.get("/avistamientos/<int:id>")
+def ver(id):
+    cuerpo, codigo = controlador().ver(id)
+    return jsonify(cuerpo), codigo
+
+@app.get("/avistamientos/resumen")
+def resumen():
+    cuerpo, codigo = controlador().resumen()
+    return jsonify(cuerpo), codigo
+
+# ---- escrituras: todavía con el código de antes ----
 @app.post("/avistamientos")
 def crear():
     datos = request.get_json(silent=True) or {}
@@ -52,13 +66,6 @@ def buscar(id):
     fila = con.execute("SELECT * FROM avistamientos WHERE id = ?", (id,)).fetchone()
     con.close()
     return fila
-
-@app.get("/avistamientos/<int:id>")
-def ver(id):
-    fila = buscar(id)
-    if fila is None:
-        return jsonify({"error": "No existe"}), 404
-    return jsonify(dict(fila)), 200
 
 #actualizar
 @app.put("/avistamientos/<int:id>")
@@ -87,14 +94,6 @@ def eliminar(id):
     con.commit()
     con.close()
     return "", 204
-
-@app.get("/avistamientos/resumen")
-def resumen():
-    con = conectar()
-    filas = con.execute(
-        "SELECT especie, COUNT(*) AS total FROM avistamientos GROUP BY especie").fetchall()
-    con.close()
-    return jsonify([dict(f) for f in filas]), 200
 
 if __name__ == "__main__":
     crear_tabla()
