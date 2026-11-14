@@ -1,11 +1,12 @@
 import sqlite3
 from flask import Flask, request, jsonify
-from validador import ValidadorDeAvistamiento
+from avistamientos.entities.validador import ValidadorDeAvistamiento
+from avistamientos.frameworks_and_drivers.reloj_sistema import RelojSistema
 
 app = Flask(__name__)
 DB = "avistamientos.db"
 CAMPOS = ["especie", "lugar", "fecha", "observador"]
-validador = ValidadorDeAvistamiento()
+validador = ValidadorDeAvistamiento(RelojSistema())
 
 def conectar():
     con = sqlite3.connect(DB)

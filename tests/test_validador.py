@@ -1,6 +1,7 @@
 from datetime import date
  
-from validador import ValidadorDeAvistamiento, RelojFijo
+from avistamientos.entities.validador import ValidadorDeAvistamiento
+from tests.relojes import RelojFijo
  
 HOY = date(2026, 10, 21)  #hoy es esta fecha
  
