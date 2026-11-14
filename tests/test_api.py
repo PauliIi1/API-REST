@@ -6,12 +6,10 @@ DATOS = {"especie": "colibri", "lugar": "Chia", "fecha": "2026-09-20", "observad
  
  
 @pytest.fixture
-def cliente(tmp_path, monkeypatch):
+def cliente(tmp_path):
     # Cada prueba usa su propia base de datos temporal: son independientes
     # y no tocan avistamientos.db
-    monkeypatch.setattr(api, "DB", str(tmp_path / "prueba.db"))
-    api.crear_tabla()
-    return api.app.test_client()
+    return api.crear_aplicacion(str(tmp_path / "prueba.db")).test_client()
  
  
 def registrar(cliente, **cambios):
