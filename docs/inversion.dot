@@ -1,0 +1,13 @@
+digraph G {
+  rankdir=LR; nodesep=0.5; ranksep=1.0; fontname="DejaVu Sans"; labelloc=t; fontsize=14;
+  label="Inversión de dependencias: el flujo de control va hacia afuera, pero el código fuente apunta hacia adentro";
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11];
+  caso [label="RegistrarAvistamiento\n(Use Cases)", fillcolor="#D5EBD5"];
+  puerto [label="«interfaz»\nRepositorioDeAvistamientos\n(Use Cases)", fillcolor="#EAF6EA", style="rounded,filled,dashed"];
+  sqlite [label="RepositorioSqlite\n(Interface Adapters)", fillcolor="#F8E6C8"];
+  bd [label="SQLite\n(base de datos)", shape=cylinder, fillcolor="#F6D5D5"];
+  caso -> puerto [label=" depende de (usa)", color="#2E7D32", fontname="DejaVu Sans", fontsize=10];
+  sqlite -> puerto [label=" implementa", color="#2E7D32", fontname="DejaVu Sans", fontsize=10];
+  sqlite -> bd [label=" SQL", color="#2E7D32", fontname="DejaVu Sans", fontsize=10];
+  caso -> sqlite [label=" flujo de control\n (en ejecución)", style=dashed, color="#C62828", fontcolor="#C62828", constraint=false, fontname="DejaVu Sans", fontsize=10];
+}

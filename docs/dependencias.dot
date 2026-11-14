@@ -1,0 +1,34 @@
+digraph G {
+  rankdir=LR; compound=true; nodesep=0.35; ranksep=1.1;
+  fontname="DejaVu Sans"; labelloc=t; fontsize=15;
+  label="Clean Architecture: todas las flechas de código fuente apuntan hacia adentro (izquierda → derecha)";
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11, fillcolor=white];
+  edge [color="#333333", arrowsize=0.8];
+
+  subgraph cluster_4 { label="Círculo 4\nFrameworks y Drivers"; style="rounded,filled"; fillcolor="#F6D5D5"; color="#B05050"; fontsize=12;
+    app [label="app.py\n(raíz de composición)"];
+    web [label="web_flask.py\n(Flask, rutas)"];
+    reloj [label="reloj_sistema.py"];
+  }
+  subgraph cluster_3 { label="Círculo 3\nInterface Adapters"; style="rounded,filled"; fillcolor="#F8E6C8"; color="#B08A40"; fontsize=12;
+    ctrl [label="controlador.py"];
+    pres [label="presentador.py"];
+    repo [label="repositorio_sqlite.py\n(SQL)"];
+  }
+  subgraph cluster_2 { label="Círculo 2\nUse Cases"; style="rounded,filled"; fillcolor="#D5EBD5"; color="#4F8F4F"; fontsize=12;
+    cdu [label="casos_de_uso.py"];
+    puerto [label="puertos.py\nRepositorioDeAvistamientos\n(interfaz)", fillcolor="#EAF6EA"];
+    mod [label="modelos.py"];
+    err [label="errores.py"];
+  }
+  subgraph cluster_1 { label="Círculo 1\nEntities"; style="rounded,filled"; fillcolor="#D5E3F6"; color="#4F6FA8"; fontsize=12;
+    ent [label="avistamiento.py"];
+    val [label="validador.py"];
+  }
+
+  app -> web; app -> reloj; app -> ctrl; app -> repo; app -> cdu; app -> val;
+  ctrl -> pres; ctrl -> err;
+  repo -> puerto; repo -> ent; repo -> mod;
+  cdu -> ent; cdu -> err; cdu -> mod;
+  puerto -> ent; puerto -> mod;
+}

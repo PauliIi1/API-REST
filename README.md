@@ -96,12 +96,26 @@ Se requiere instalar dependencias de prueba con: `pip install -r requirements-de
 
 Correr las pruebas: `python -m pytest`
 
-Generar la cobertura: `python -m pytest --cov=app --cov=validador --cov-report=term-missing`
+Generar la cobertura: `python -m pytest --cov=app --cov=avistamientos --cov-report=term-missing`
 
-La validación está en `tests/test_validador.py` y las pruebas de integración en `tests/test_api.py`.
+La validación está en `tests/test_validador.py`, las pruebas de integración en `tests/test_api.py`, las pruebas de los casos de uso (sin Flask ni base de datos) en `tests/test_casos_de_uso.py` y la verificación de la regla de dependencia en `tests/test_arquitectura.py`.
+
+# Arquitectura
+El código sigue Clean Architecture (Martin, 2012), con cuatro círculos. Las dependencias del código fuente solo apuntan hacia adentro.
+
+```
+app.py                                  raíz de composición: arma las piezas y arranca la API
+avistamientos/
+├── entities/                           círculo 1: Avistamiento y la regla de validación
+├── use_cases/                          círculo 2: casos de uso, errores, datos simples y el puerto del repositorio
+├── interface_adapters/                 círculo 3: controlador, presentador y repositorio SQLite
+└── frameworks_and_drivers/             círculo 4: Flask (rutas) y el reloj del sistema
+```
+
+La explicación completa, los diagramas y la evidencia antes y después del refactor están en `docs/Taller5_Clean_Architecture.md`.
 
 # Regla de negocio
 Un avistamiento es válido si la especie tiene entre 3 y 50 caracteres, la fecha tiene el formato AAAA-MM-DD y no es posterior a hoy, y el lugar y el observador no están vacíos. Si no es válido, POST y PUT responden 400 con un mensaje que dice qué campo falló.
 
 # Uso de IA
-Usé Claude (modelo Sonnet 5.5) como herramienta de apoyo y consulta para desarrollar esta API y consulta de comandos para la realización de las pruebas.
+Usé Claude (modelo Sonnet 5.5) como herramienta de apoyo y consulta para desarrollar esta API y consulta de comandos para la realización de las pruebas. En el Taller 5 (Clean Architecture) también lo usé como apoyo para el refactor y para redactar el documento.
