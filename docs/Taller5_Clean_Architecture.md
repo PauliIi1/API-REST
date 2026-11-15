@@ -284,7 +284,7 @@ Comando de la comparación: `diff docs/evidencia/antes_api.txt docs/evidencia/de
 
 ## 4. Qué fue lo más difícil de separar y por qué
 
-Lo más difícil fue decidir **quién decide el código HTTP**. En el código original, `crear` y `actualizar` hacían todo seguido: leer el JSON, validar, guardar en SQL y armar la respuesta con su código (400, 404, 201). Es una sola decisión mezclada ("si no es válido, responder 400"), y al separarla hay que repartirla: que los datos sean inválidos o que el id no exista es una regla de la aplicación (círculo 2), pero que eso se llame 400 o 404 es un detalle de HTTP (círculos 3 y 4). La solución fue que el caso de uso lance errores de negocio (`DatosInvalidos`, `AvistamientoNoEncontrado`) y que el controlador los traduzca a códigos.
+Lo más difícil fue decidir quién decide el código HTTP. En el código original, `crear` y `actualizar` hacían todo seguido: leer el JSON, validar, guardar en SQL y armar la respuesta con su código (400, 404, 201). Es una sola decisión mezclada ("si no es válido, responder 400"), y al separarla hay que repartirla: que los datos sean inválidos o que el id no exista es una regla de la aplicación (círculo 2), pero que eso se llame 400 o 404 es un detalle de HTTP (círculos 3 y 4). La solución fue que el caso de uso lance errores de negocio (`DatosInvalidos`, `AvistamientoNoEncontrado`) y que el controlador los traduzca a códigos.
 
 Dentro de eso, lo más delicado fue el **orden de las comprobaciones en `PUT`**: la API original revisa primero que el id exista (404) y después valida los datos (400). Si se invierte, una petición con un id que no existe y datos inválidos pasa de 404 a 400, y la API responde distinto. Por eso ese orden quedó en el caso de uso `ActualizarAvistamiento` y tiene su propia prueba (`test_actualizar_inexistente_responde_no_encontrado_antes_que_invalido`).
 
@@ -292,7 +292,7 @@ Otra cosa difícil fue el reloj: `ValidadorDeAvistamiento` creaba su propio `Rel
 
 ## Uso de IA
 
-Usé Claude (modelo Sonnet 5.5) como herramienta de apoyo en este taller: para hacer el refactor del código por pasos, para correr las pruebas y la comparación antes y después, y para redactar este documento a partir de las tres fuentes de la Parte 1 y de los resultados de ejecutar el código.
+Usé Claude (modelo Sonnet 5.5) como herramienta de apoyo en este tallerpara hacer los parches con los commits, para mejorar la redacción y estructura del documento word y el .md.
 
 ---
 
